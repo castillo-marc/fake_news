@@ -1,8 +1,6 @@
 
-./models/*
-./models
-./models_test/*
-./models_test
+models/*
+models
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
