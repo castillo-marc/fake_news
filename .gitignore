@@ -1,6 +1,10 @@
 
+# models
 models/*
-models
+!models/xgb_with_bert.pkl
+# !models/tfidf_vectorizer.pkl # for now, the models are too big to upload
+# !models/svd.pkl
+# !models/xgb_with_tfidf.pkl
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
