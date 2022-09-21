@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Fake News Classifier</title>
+{% endblock %}
+
+{% block body %}
+<div>
+    <h1 style="text-align: center">Result</h1>
+    <h3 style="text-align: center">{{label}}</h3>
+    <h4>Article Text (cleaned)</h4>
+    <p>{{text}}</p>
+    <form action="/result/" method="GET">
+        <input type="submit" value="Try another article">
+    </form>
+    
+</div>
+
+
+{% endblock %}
