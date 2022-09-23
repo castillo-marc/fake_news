@@ -7,16 +7,23 @@ from xgboost import XGBClassifier
 from sklearn.pipeline import Pipeline
 from process_text import scraper, clean_text
 
+from sentence_transformers import SentenceTransformer
+from sklearn.preprocessing import FunctionTransformer
+
 app = Flask(__name__)
 
 model_path = "models/"
 
-tfidf = pickle.load(open(model_path + "tfidf_vectorizer.pkl", "rb"))
-svd = pickle.load(open(model_path + "svd.pkl", "rb"))
-xgb_with_tfidf = pickle.load(open(model_path + "xgb_with_tfidf.pkl", "rb"))
+model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+sent_embedding_transformer = FunctionTransformer(lambda text: model.encode(text))
+xgb_with_bert = pickle.load(open(model_path + "xgb_with_bert.pkl", "rb"))
+pipe_bert = Pipeline([("embeddings", sent_embedding_transformer), ("xgb", xgb_with_bert)])
 
-pipe_tfidf = Pipeline([("tfidf", tfidf), ("svd", svd), ("xgb", xgb_with_tfidf)])
-
+# TODO:
+# can have sample links to try
+# visualizations: frequency plot, wordcloud
+# oh, also a word counter under text box
+# also a loading animation after clicking button, if necessary
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -25,7 +32,7 @@ def index():
         # url = request.form["article_url"] # couldn't get beautifulsoup to work on too many websites bc of paywalls
         # text = scraper(url)
         text = clean_text(text)
-        pred = pipe_tfidf.predict([text])
+        pred = pipe_bert.predict([text])
         if pred == 1:
             label="Fake"
         else:
