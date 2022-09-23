@@ -1,8 +1,8 @@
 from flask import Flask, request, render_template, redirect
 # from flask_sqlalchemy import SQLAlchemy
 import pickle
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.decomposition import TruncatedSVD
+# from sklearn.feature_extraction.text import TfidfVectorizer
+# from sklearn.decomposition import TruncatedSVD
 from xgboost import XGBClassifier
 from sklearn.pipeline import Pipeline
 from process_text import scraper, clean_text
