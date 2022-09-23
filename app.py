@@ -3,9 +3,9 @@ from flask import Flask, request, render_template, redirect
 import pickle
 # from sklearn.feature_extraction.text import TfidfVectorizer
 # from sklearn.decomposition import TruncatedSVD
-from xgboost import XGBClassifier
+# from xgboost import XGBClassifier
 from sklearn.pipeline import Pipeline
-from process_text import scraper, clean_text
+from process_text import clean_text
 
 from sentence_transformers import SentenceTransformer
 from sklearn.preprocessing import FunctionTransformer
