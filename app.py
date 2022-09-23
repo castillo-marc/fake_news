@@ -1,23 +1,22 @@
 from flask import Flask, request, render_template, redirect
-# from flask_sqlalchemy import SQLAlchemy
 import pickle
-# from sklearn.feature_extraction.text import TfidfVectorizer
-# from sklearn.decomposition import TruncatedSVD
+
 from xgboost import XGBClassifier
-from sklearn.pipeline import Pipeline
 from process_text import clean_text
 
 from sentence_transformers import SentenceTransformer
-from sklearn.preprocessing import FunctionTransformer
+
+# from sklearn.preprocessing import FunctionTransformer
+# from sklearn.pipeline import Pipeline
 
 app = Flask(__name__)
 
 model_path = "models/"
 
 model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
-sent_embedding_transformer = FunctionTransformer(lambda text: model.encode(text))
+# sent_embedding_transformer = FunctionTransformer(lambda text: model.encode(text))
 xgb_with_bert = pickle.load(open(model_path + "xgb_with_bert.pkl", "rb"))
-pipe_bert = Pipeline([("embeddings", sent_embedding_transformer), ("xgb", xgb_with_bert)])
+# pipe_bert = Pipeline([("embeddings", sent_embedding_transformer), ("xgb", xgb_with_bert)])
 
 # TODO:
 # can have sample links to try
@@ -32,7 +31,7 @@ def index():
         # url = request.form["article_url"] # couldn't get beautifulsoup to work on too many websites bc of paywalls
         # text = scraper(url)
         text = clean_text(text)
-        pred = pipe_bert.predict([text])
+        pred = xgb_with_bert.predict([model.encode(text)])
         if pred == 1:
             label="Fake"
         else:
