@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect
 import pickle
 
-from xgboost import XGBClassifier
+from lightgbm import LGBMClassifier
 from process_text import clean_text
 
 from sentence_transformers import SentenceTransformer
@@ -13,9 +13,9 @@ app = Flask(__name__)
 
 model_path = "models/"
 
-model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+model = SentenceTransformer("sentence-transformers/paraphrase-albert-small-v2")
 # sent_embedding_transformer = FunctionTransformer(lambda text: model.encode(text))
-xgb_with_bert = pickle.load(open(model_path + "xgb_with_bert.pkl", "rb"))
+xgb_with_bert = pickle.load(open(model_path + "lgbm_with_bert.pkl", "rb"))
 # pipe_bert = Pipeline([("embeddings", sent_embedding_transformer), ("xgb", xgb_with_bert)])
 
 # TODO:
