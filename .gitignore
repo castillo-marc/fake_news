@@ -4,6 +4,7 @@ data
 models/*
 # !models/xgb_with_bert.pkl
 !models/lgbm_with_bert.pkl
+!models/sent_transformer.pkl
 # !models/tfidf_vectorizer.pkl # for now, the models are too big to upload
 # !models/svd.pkl
 # !models/xgb_with_tfidf.pkl
